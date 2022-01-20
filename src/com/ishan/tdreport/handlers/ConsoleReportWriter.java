@@ -1,4 +1,4 @@
-package com.ishan.tdreport.reportgenerators;
+package com.ishan.tdreport.handlers;
 
 import com.ishan.tdreport.models.Report;
 
@@ -6,17 +6,19 @@ import java.util.*;
 
 import static com.ishan.tdreport.constants.Constants.*;
 
-public class OutputGenerator extends CsvReportGenerator {
+public class ConsoleReportWriter implements ReportWriter {
+
+    public ConsoleReportWriter() {
+    }
 
     Map<String, Report> reports = new TreeMap<>();
 
-    @Override
-    protected void handleRow(String[] row) {
+    public  void handleRow(String[] row) {
         if(reports.containsKey(row[IP_ADDRESS])) {
-            Report r = reports.get(row[IP_ADDRESS]);
-            r.setLastUpdated(row[TIMESTAMP]);
-            r.setStatus(row[STATUS]);
-            r.setCount(r.getCount() + 1);
+            Report report = reports.get(row[IP_ADDRESS]);
+            report.setLastUpdated(row[TIMESTAMP]);
+            report.setStatus(row[STATUS]);
+            report.setCount(report.getCount() + 1);
         }
         else {
             reports.put(
@@ -24,8 +26,7 @@ public class OutputGenerator extends CsvReportGenerator {
         }
     }
 
-    @Override
-    public void showReport() {
+    public void showOutput() {
         System.out.println("IP-Address\tThreats count\tLast event time\tStatus\tDifference(Hours & Minutes)");
         reports.forEach((s, report) -> {
             System.out.println(report);

@@ -1,13 +1,24 @@
-package com.ishan.tdreport.reportgenerators;
+package com.ishan.tdreport.handlers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 
-public abstract class CsvReportGenerator implements ReportGenerator {
+public class CsvReportReader implements ReportReader {
 
-    public void readReport(String filePath)  {
+    private ReportWriter reportWriter;
+
+    public CsvReportReader(ReportWriter reportWriter) {
+        this.reportWriter = reportWriter;
+    }
+
+    public CsvReportReader() {
+
+    }
+
+    @Override
+    public void readFile(String filePath)  {
         try {
             String line = "";
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -17,13 +28,16 @@ public abstract class CsvReportGenerator implements ReportGenerator {
 
             while((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                handleRow(row);
+                if(reportWriter != null) reportWriter.handleRow(row);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected abstract void handleRow(String[] row);
+    @Override
+    public void setRowDataHandler(ReportWriter writer) {
+        this.reportWriter = writer;
+    }
 
 }

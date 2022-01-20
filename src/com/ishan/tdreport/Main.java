@@ -1,16 +1,18 @@
 package com.ishan.tdreport;
 
-import com.ishan.tdreport.reportgenerators.OutputGenerator;
-import com.ishan.tdreport.reportgenerators.ReportGenerator;
+import com.ishan.tdreport.handlers.CsvReportReader;
+import com.ishan.tdreport.handlers.ConsoleReportWriter;
+import com.ishan.tdreport.handlers.ReportReader;
+import com.ishan.tdreport.handlers.ReportWriter;
 
 
 public class Main {
 
     public static void main(String[] args) {
-
-        ReportGenerator reportGenerator = new OutputGenerator();
-        reportGenerator.readReport("resources/threat_generator.csv");
-        reportGenerator.showReport();
-
+        ReportReader reader = new CsvReportReader();
+        ReportWriter writer = new ConsoleReportWriter();
+        reader.setRowDataHandler(writer);
+        reader.readFile("resources/threat_generator.csv");
+        writer.showOutput();
     }
 }
