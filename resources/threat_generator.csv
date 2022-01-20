@@ -1,0 +1,4 @@
+threat_id,ip_address,creation_time,description,severity,status,owner
+1,10.0.14.101,12/30/2019 09:40:00,Infected IP,1,False,Fonzie McCalum
+2,10.0.14.159,01/20/2020 13:00:05,Infected IP,2,False,Dorthea Davydochkin
+3,10.0.14.101,12/30/2019 11:00:00,Resolved,0,True,Quillan De Zamudio
