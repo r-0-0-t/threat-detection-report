@@ -1,6 +1,7 @@
 package com.ishan.tdreport.constants;
 
 public final class Constants {
+    private Constants() {}
 
     public static final int IP_ADDRESS = 1;
     public static final int TIMESTAMP = 2;
